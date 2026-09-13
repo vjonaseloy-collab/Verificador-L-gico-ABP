@@ -1,0 +1,29 @@
+id_registro,tipo,nombre,apellido,categoria,precio,stock,email,telefono,estado,total,id_producto,id_reparacion,id_cliente,id_empleado,valido
+1,producto,Intel i7-12700K,,hardware,420.00,15,,,,,,,,,SI
+2,producto,AMD Ryzen 7 5800X,,hardware,390.00,12,,,,,,,,,SI
+3,producto,SSD 1TB NVMe,,hardware,130.00,10,,,,,,,,,SI
+4,producto,Monitor LG 24,,periferico,200.00,7,,,,,,,,,SI
+5,producto,Microsoft Windows 11,,software,150.00,25,,,,,,,,,SI
+6,producto,Producto Malo,,hardware,-50.00,10,,,,,,,,,NO
+7,producto,Producto Caro,,hardware,8000.00,5,,,,,,,,,NO
+8,producto,Producto Sin Nombre,,hardware,100.00,5,,,,,,,,,NO
+9,producto,Producto Categoria Invalida,,electronica,100.00,5,,,,,,,,,NO
+10,producto,Producto Stock Negativo,,hardware,100.00,-3,,,,,,,,,NO
+11,cliente,Pedro,García,,, ,,pedro@mail.com,10101010,,,,,,SI
+12,cliente,Lucía,Fernández,,, ,,lucia@mail.com,20202020,,,,,,SI
+13,cliente,Miguel,Torres,,, ,,miguel@mail.com,30303030,,,,,,SI
+14,cliente,Lucia,Email Malo,,, ,,lucia.mail.com,40404040,,,,,,NO
+15,cliente,Sofia,Telefono Malo,,, ,,sofia@mail.com,abc123,,,,,,NO
+16,cliente,Sin,Nombre,,, ,,noname@mail.com,50505050,,,,,,NO
+17,reparacion,,,,150.00,,, ,finalizada,150.00,,1,1,1,SI
+18,reparacion,,,,120.00,,, ,finalizada,120.00,,2,2,2,SI
+19,reparacion,,,,80.00,,, ,pendiente,80.00,,3,3,3,SI
+20,reparacion,,,,200.00,,, ,en_proceso,200.00,,4,4,4,NO
+21,reparacion,,,,-30.00,,, ,finalizada,-30.00,,5,5,5,NO
+22,transaccion,,,,420.00,,,,,420.00,1,,1,1,SI
+23,transaccion,,,,150.00,,,,,150.00,,1,1,1,SI
+24,transaccion,,,,500.00,,,,,500.00,2,,2,2,SI
+25,transaccion,,,,100.00,,,,,100.00,,2,2,2,SI
+26,transaccion,,,,500.00,,,,,500.00,1,1,1,1,NO
+27,transaccion,,,,100.00,,,,,100.00,,,1,1,NO
+28,transaccion,,,,-50.00,,,,,-50.00,3,,3,3,NO
