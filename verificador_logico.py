@@ -68,10 +68,8 @@ class ValidadorByteFix:
             errores.append("La transacción debe tener un producto o una reparación.")
         return (False, " | ".join(errores)) if errores else (True, "Transacción válida.")
 
+# csv lectura
 
-# ==========================================
-# LECTURA DEL CSV Y EJECUCIÓN
-# ==========================================
 def verificar_dataset(archivo):
     with open(archivo, encoding='utf-8') as f:
         registros = list(csv.DictReader(f))
