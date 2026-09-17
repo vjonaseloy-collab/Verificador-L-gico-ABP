@@ -1,4 +1,4 @@
-## 📁 Archivos del proyecto
+##  Archivos del proyecto
 
 | Archivo | Descripción |
 |---------|-------------|
@@ -48,7 +48,7 @@
 | — | El ID del cliente debe ser un número positivo |
 | — | Debe tener producto XOR reparación (no ambos, no ninguno) |
 
-## 📊 Estructura del dataset
+##  Estructura del dataset
 
 El archivo `dataset_bytefix.csv` contiene las siguientes columnas:
 id_registro, tipo, nombre, apellido, categoria, precio, stock,
