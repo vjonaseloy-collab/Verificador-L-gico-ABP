@@ -8,7 +8,7 @@
 
 ---
 
-## 🧠 Reglas lógicas aplicadas
+##  Reglas lógicas aplicadas
 
 ### Productos
 
