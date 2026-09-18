@@ -1,7 +1,7 @@
 id_registro,tipo,nombre,apellido,categoria,precio,stock,email,telefono,estado,total,id_producto,id_reparacion,id_cliente,id_empleado,valido
 1,producto,Intel i7-12700K,,hardware,420.00,15,,,,,,,,,SI
 2,producto,RTX1660,,hardware,-50.00,10,,,,,,,,,NO
-3,producto,Pasta termica,,electronica,8000.00,5,,,,,,,,,NO
+3,producto,Pasta termica,,electronica,8000.00,5,,,,,,,,NO
 4,cliente,Pedro,García,,,,pedro@mail.com,90909090,,,,,,,,SI
 5,cliente,Lucia,Perez,,,,lucia.mail.com,40404040,,,,,,,NO
 6,cliente,Sofia,Gomez,,,,sofia@mail.com,abc123,,,,,,,NO
