@@ -2,9 +2,9 @@ id_registro,tipo,nombre,apellido,categoria,precio,stock,email,telefono,estado,to
 1,producto,Intel i7-12700K,,hardware,420.00,15,,,,,,,,,SI
 2,producto,Producto Malo,,hardware,-50.00,10,,,,,,,,,NO
 3,producto,Producto Categoria Invalida,,electronica,8000.00,5,,,,,,,,,NO
-4,cliente,Pedro,García,,,,pedro@mail.com,90909090,,,,,,,SI
-5,cliente,Lucia,Email Malo,,,,,lucia.mail.com,40404040,,,,,,NO
-6,cliente,Sofia,Telefono Malo,,,,,sofia@mail.com,abc123,,,,,,NO
+4,cliente,Pedro,García,,,,pedro@mail.com,90909090,,,,,,,,SI
+5,cliente,Lucia,Perez,,,,lucia.mail.com,40404040,,,,,,,NO
+6,cliente,Sofia,Gomez,,,,sofia@mail.com,abc123,,,,,,,NO
 7,reparacion,,,,150.00,,, ,finalizada,150.00,,1,1,1,SI
 8,reparacion,,,,200.00,,, ,en_proceso,200.00,,4,4,4,NO
 9,reparacion,,,,-30.00,,, ,finalizada,-30.00,,5,5,5,NO
