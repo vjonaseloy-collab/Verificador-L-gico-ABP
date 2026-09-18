@@ -1,74 +1,73 @@
 import csv
 import re
 
-class ValidadorByteFix:
-    """Clase que contiene métodos para validar las reglas lógicas chotas"""
+# REGLAS LÓGICAS (con notación formal)
 
-    @staticmethod
-    def validar_producto(nombre, categoria, precio, stock):
-        errores = []
-        if not nombre or nombre.strip() == "":
-            errores.append("El nombre del producto no puede estar vacío.")
-        if categoria not in ['hardware', 'software', 'periferico']:
-            errores.append("La categoría debe ser una de: ['hardware', 'software', 'periferico']")
-        if not precio or float(precio) <= 0:
-            errores.append("El precio debe ser mayor a 0.")
-        if stock and int(stock) < 0:
-            errores.append("El stock no puede ser negativo.")
-        return (False, " | ".join(errores)) if errores else (True, "Producto válido.")
+# P  = nombre válido
+# Q  = categoría válida
+# R  = precio > 0
+# S  = stock >= 0
+# T  = teléfono numérico
+# U  = email válido
+# V  = estado válido
+# W  = total > 0
+# X  = XOR producto/reparación
+# ID = IDs positivos
 
-    @staticmethod
-    def validar_cliente(nombre, apellido, telefono, email, direccion):
-        errores = []
-        if not nombre or nombre.strip() == "":
-            errores.append("El nombre no puede estar vacío.")
-        if not apellido or apellido.strip() == "":
-            errores.append("El apellido no puede estar vacío.")
-        if telefono and not str(telefono).isdigit():
-            errores.append("El teléfono debe contener solo números.")
-        if email:
-            patron = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-            if not re.match(patron, email):
-                errores.append("El email no tiene un formato válido.")
-        if direccion and len(direccion.strip()) < 5:
-            errores.append("La dirección debe tener al menos 5 caracteres.")
-        return (False, " | ".join(errores)) if errores else (True, "Cliente válido.")
+def validar_producto(nombre, categoria, precio, stock):
+    errores = []
+    if not nombre or nombre.strip() == "":
+        errores.append("¬P: nombre vacío")
+    if categoria not in ['hardware', 'software', 'periferico']:
+        errores.append("¬Q: categoría inválida")
+    if not precio or float(precio) <= 0:
+        errores.append("¬R: precio ≤ 0")
+    if stock and int(stock) < 0:
+        errores.append("¬S: stock negativo")
+    return (False, " ∧ ".join(errores)) if errores else (True, "P ∧ Q ∧ R ∧ S")
 
-    @staticmethod
-    def validar_reparacion(id_cliente, id_empleado, tipo_trabajo, estado, precio):
-        errores = []
-        if not str(id_cliente).strip().isdigit() or int(id_cliente) <= 0:
-            errores.append("El ID del cliente debe ser un número positivo.")
-        if not str(id_empleado).strip().isdigit() or int(id_empleado) <= 0:
-            errores.append("El ID del empleado debe ser un número positivo.")
-        if not tipo_trabajo or tipo_trabajo.strip() == "":
-            errores.append("El tipo de trabajo no puede estar vacío.")
-        if estado not in ['pendiente', 'finalizada']:
-            errores.append("El estado debe ser uno de: ['pendiente', 'finalizada']")
-        if not precio or float(precio) <= 0:
-            errores.append("El precio debe ser mayor a 0.")
-        return (False, " | ".join(errores)) if errores else (True, "Reparación válida.")
+def validar_cliente(nombre, apellido, telefono, email, direccion):
+    errores = []
+    if not nombre or nombre.strip() == "":
+        errores.append("¬P: nombre vacío")
+    if not apellido or apellido.strip() == "":
+        errores.append("¬P2: apellido vacío")
+    if telefono and not str(telefono).isdigit():
+        errores.append("¬T: teléfono no numérico")
+    if email and not re.match(r'^[^@]+@[^@]+\.[a-zA-Z]{2,}$', email):
+        errores.append("¬U: email inválido")
+    return (False, " ∧ ".join(errores)) if errores else (True, "P ∧ P2 ∧ T ∧ U")
 
-    @staticmethod
-    def validar_transaccion(id_empleado, id_cliente, id_producto, id_reparacion, total):
-        errores = []
-        if not total or float(total) <= 0:
-            errores.append("El total debe ser mayor a 0.")
-        if not str(id_empleado).strip().isdigit() or int(id_empleado) <= 0:
-            errores.append("El ID del empleado debe ser un número positivo.")
-        if not str(id_cliente).strip().isdigit() or int(id_cliente) <= 0:
-            errores.append("El ID del cliente debe ser un número positivo.")
+def validar_reparacion(id_cliente, id_empleado, estado, precio):
+    errores = []
+    if not str(id_cliente).strip().isdigit() or int(id_cliente) <= 0:
+        errores.append("¬ID1: ID cliente inválido")
+    if not str(id_empleado).strip().isdigit() or int(id_empleado) <= 0:
+        errores.append("¬ID2: ID empleado inválido")
+    if estado not in ['pendiente', 'finalizada']:
+        errores.append("¬V: estado inválido")
+    if not precio or float(precio) <= 0:
+        errores.append("¬R: precio ≤ 0")
+    return (False, " ∧ ".join(errores)) if errores else (True, "ID1 ∧ ID2 ∧ V ∧ R")
 
-        tiene_prod = bool(id_producto and str(id_producto).strip())
-        tiene_rep = bool(id_reparacion and str(id_reparacion).strip())
+def validar_transaccion(id_empleado, id_cliente, id_producto, id_reparacion, total):
+    errores = []
+    if not total or float(total) <= 0:
+        errores.append("¬W: total ≤ 0")
+    if not str(id_empleado).strip().isdigit() or int(id_empleado) <= 0:
+        errores.append("¬ID1: ID empleado inválido")
+    if not str(id_cliente).strip().isdigit() or int(id_cliente) <= 0:
+        errores.append("¬ID2: ID cliente inválido")
+    tiene_prod = bool(id_producto and str(id_producto).strip())
+    tiene_rep = bool(id_reparacion and str(id_reparacion).strip())
+    if tiene_prod and tiene_rep:
+        errores.append("¬X: ambos (producto y reparación)")
+    if not tiene_prod and not tiene_rep:
+        errores.append("¬X: ninguno (ni producto ni reparación)")
+    return (False, " ∧ ".join(errores)) if errores else (True, "W ∧ ID1 ∧ ID2 ∧ X")
 
-        if tiene_prod and tiene_rep:
-            errores.append("Una transacción no puede ser venta y reparación a la vez.")
-        if not tiene_prod and not tiene_rep:
-            errores.append("La transacción debe tener un producto o una reparación.")
-        return (False, " | ".join(errores)) if errores else (True, "Transacción válida.")
 
-# csv lectura
+# EJECUCIÓN (recordar testear y anotar errores)
 
 def verificar_dataset(archivo):
     with open(archivo, encoding='utf-8') as f:
@@ -78,49 +77,27 @@ def verificar_dataset(archivo):
     print("VERIFICADOR LÓGICO - BYTEFIX")
     print("=" * 60)
 
-    val = ValidadorByteFix()
     validos = invalidos = 0
-
     for reg in registros:
         tipo = (reg.get('tipo') or '').strip().lower()
-
         if tipo == 'producto':
-            ok, motivo = val.validar_producto(
-                reg.get('nombre', ''), reg.get('categoria', ''),
-                reg.get('precio', ''), reg.get('stock', '')
-            )
+            ok, motivo = validar_producto(reg.get('nombre',''), reg.get('categoria',''), reg.get('precio',''), reg.get('stock',''))
         elif tipo == 'cliente':
-            ok, motivo = val.validar_cliente(
-                reg.get('nombre', ''), reg.get('apellido', ''),
-                reg.get('telefono', ''), reg.get('email', ''), ''
-            )
+            ok, motivo = validar_cliente(reg.get('nombre',''), reg.get('apellido',''), reg.get('telefono',''), reg.get('email',''), '')
         elif tipo == 'reparacion':
-            ok, motivo = val.validar_reparacion(
-                reg.get('id_cliente', ''), reg.get('id_empleado', ''),
-                'Reparación', reg.get('estado', ''), reg.get('precio', '')
-            )
+            ok, motivo = validar_reparacion(reg.get('id_cliente',''), reg.get('id_empleado',''), reg.get('estado',''), reg.get('precio',''))
         elif tipo == 'transaccion':
-            ok, motivo = val.validar_transaccion(
-                reg.get('id_empleado', ''), reg.get('id_cliente', ''),
-                reg.get('id_producto', ''), reg.get('id_reparacion', ''),
-                reg.get('total', '')
-            )
+            ok, motivo = validar_transaccion(reg.get('id_empleado',''), reg.get('id_cliente',''), reg.get('id_producto',''), reg.get('id_reparacion',''), reg.get('total',''))
         else:
-            ok, motivo = False, "Tipo desconocido"
+            ok, motivo = False, "tipo desconocido"
 
         esperado = (reg.get('valido') or '').strip().upper()
-        if esperado not in ('SI', 'NO'):
-            esperado = 'SI' if ok else 'NO'
+        estado = "OK" if (ok and esperado=='SI') or (not ok and esperado=='NO') else "REVISAR"
 
-        coincide = (ok and esperado == 'SI') or (not ok and esperado == 'NO')
-        estado = "OK" if coincide else "REVISAR"
+        validos += ok
+        invalidos += not ok
 
-        if ok:
-            validos += 1
-        else:
-            invalidos += 1
-
-        print(f"\n[{estado}] Registro #{reg.get('id_registro', '?')} ({reg.get('tipo', '?')})")
+        print(f"\n[{estado}] Registro #{reg.get('id_registro','?')} ({reg.get('tipo','?')})")
         print(f"   Resultado:    {'VÁLIDO' if ok else 'INVÁLIDO'}")
         print(f"   Esperado:     {esperado}")
         print(f"   Explicación:  {motivo}")
@@ -134,7 +111,6 @@ def verificar_dataset(archivo):
     print(f"Inválidos:     {invalidos}")
     print(f"Coincidencias: {validos + invalidos}/{total} = 100%")
     print("=" * 60)
-
 
 if __name__ == "__main__":
     verificar_dataset("dataset_bytefix.csv")
